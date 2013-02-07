@@ -1,7 +1,12 @@
 from bottle import route, run, template
 from pymongo import MongoClient
+import ConfigParser
 
-connection = MongoClient('precise64', 27017)
+config = ConfigParser.ConfigParser()
+config.read('config.ini')
+
+connection = MongoClient(
+    config.get('mongo', 'host'), config.getint('mongo', 'port'))
 db = connection.tests
 
 
